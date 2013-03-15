@@ -1,0 +1,210 @@
+#!/bin/zsh -f
+# all sorts of dwrites
+#
+# From:	Timothy J. Luoma
+# Mail:	luomat at gmail dot com
+# Date:	2013-03-15
+
+NAME="$0:t"
+
+# hash tmutil &> /dev/null && sudo tmutil disablelocal # Disable local Time Machine backups
+# [ -e ~/Library/Application\ Support/Dock/*.db ] && rm ~/Library/Application\ Support/Dock/*.db # Reset Launchpad
+
+	# Fix for the ancient UTF-8 bug in QuickLook (http://mths.be/bbo).
+	# This is known to cause problems when saving files in Adobe Illustrator CS5
+[[ -e "$HOME/.CFUserTextEncoding" ]] || echo "0x08000100:0" > "$HOME/.CFUserTextEncoding"
+
+	# Show the ~/Library folder
+chflags nohidden ~/Library
+
+
+#
+#	Turn this one on at your own risk. I usually turn it on when setting up a new system because I find myself rebooting frequently
+#
+defaults write /Library/Preferences/com.apple.loginwindow autoLoginUser $USER	# Enable automatic login
+
+
+
+sudo /usr/bin/defaults write /Library/Preferences/com.apple.alf globalstate -int 0 # firewall OFF use '2' for 'block all' source: http://macadmincorner.com/configure-the-mac-os-x-firewall-with-a-script/
+sudo /usr/bin/defaults write /Library/Preferences/com.apple.alf stealthenabled -int 0 # firewall OFF use '2' for 'block all' source: http://macadmincorner.com/configure-the-mac-os-x-firewall-with-a-script/
+
+#sudo /usr/bin/defaults write /Library/Preferences/com.apple.alf globalstate -int 1 # firewall ON use '2' for 'block all' source: http://macadmincorner.com/configure-the-mac-os-x-firewall-with-a-script/
+#sudo /usr/bin/defaults write /Library/Preferences/com.apple.alf stealthenabled -int 1 # firewall ON use '2' for 'block all' source: http://macadmincorner.com/configure-the-mac-os-x-firewall-with-a-script/
+
+
+
+/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:showItemInfo true" ~/Library/Preferences/com.apple.finder.plist # Show item info below desktop icons
+
+defaults write NSGlobalDomain AppleEnableMenuBarTransparency -bool false # Disable menu bar transparency
+defaults write NSGlobalDomain AppleEnableSwipeNavigateWithScrolls -bool true # Trackpad: swipe between pages with three fingers
+defaults write NSGlobalDomain AppleFontSmoothing -int 2 # Enable subpixel font rendering on non-Apple LCDs
+defaults write NSGlobalDomain AppleKeyboardUIMode -int 3 # Enable full keyboard access for all controls (e.g. enable Tab in modal dialogs)
+defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false # Disable press-and-hold for keys in favor of key repeat
+defaults write NSGlobalDomain AppleShowAllExtensions -bool true # Show all filename extensions in Finder
+defaults write NSGlobalDomain AppleShowScrollBars -string "Always" # Always show scrollbars
+defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1 # Trackpad: enable tap to click for this user and for the login screen
+defaults write NSGlobalDomain KeyRepeat -int 0 # Set a blazingly fast keyboard repeat rate
+defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false # Disable auto-correct
+defaults write NSGlobalDomain NSAutomaticWindowAnimationsEnabled -bool false # Disable window animations
+defaults write NSGlobalDomain NSDisableAutomaticTermination -bool true # Disable automatic termination of inactive apps
+defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true # Expand save panel by default
+defaults write NSGlobalDomain NSQuitAlwaysKeepsWindows -bool false # Disable Resume system-wide
+defaults write NSGlobalDomain NSSavePanelStandardDesktopShortcutOnly -bool YES
+defaults write NSGlobalDomain NSWindowResizeTime -float 0.001 # Increase window resize speed for Cocoa applications
+defaults write NSGlobalDomain PMPrintingExpandedStateForPrint -bool true # Expand print panel by default
+defaults write NSGlobalDomain WebKitDeveloperExtras -bool true # Add a context menu item for showing the Web Inspector in web views
+
+
+defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1 # Trackpad: enable tap to click for this user and for the login screen
+defaults -currentHost write NSGlobalDomain com.apple.trackpad.enableSecondaryClick -bool true # Trackpad: map bottom right corner to right-click
+defaults -currentHost write NSGlobalDomain com.apple.trackpad.threeFingerHorizSwipeGesture -int 1 # Trackpad: swipe between pages with three fingers
+defaults -currentHost write NSGlobalDomain com.apple.trackpad.trackpadCornerClickBehavior -int 1 # Trackpad: map bottom right corner to right-click
+
+defaults write -g NSDisableAutomaticTermination -bool yes # Turn off Auto Termination: https://twitter.com/azav/status/229691355713118208
+defaults write -g NSNavPanelExpandedStateForSaveMode -boolean true
+defaults write -g NSScrollAnimationEnabled -bool NO # Mountain Lion's sanity-saving command-line tweak to disable smooth scrolling: https://twitter.com/siracusa/status/228285565936738304
+defaults write -g PMPrintingExpandedStateForPrint -boolean true
+
+defaults write /Applications/Preview.app/Contents/Info NSAppleScriptEnabled -bool YES
+defaults write /Applications/Preview.app/Contents/Info.plist NSAppleScriptEnabled -bool YES
+
+
+defaults write com.apple.dashboard devmode -bool true # Enable Dashboard dev mode (allows keeping widgets on the desktop)
+
+defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true # Avoid creating .DS_Store files on network volumes
+
+defaults write com.apple.DiskUtility DUDebugMenuEnabled 1
+
+defaults write com.apple.dock autohide -bool false	# Automatically hide the Dock?
+defaults write com.apple.dock enable-spring-load-actions-on-all-items -bool true # Enable spring loading for all Dock items
+defaults write com.apple.dock launchanim -bool false # Don’t animate opening applications from the Dock
+defaults write com.apple.dock mouse-over-hilte-stack -bool true # Enable highlight hover effect for the grid view of a stack (Dock)
+defaults write com.apple.dock no-bouncing -bool TRUE
+defaults write com.apple.dock no-glass -bool true # Enable the 2D Dock
+defaults write com.apple.dock orientation left
+defaults write com.apple.dock pinning Start
+defaults write com.apple.dock show-process-indicators -bool true # Show indicator lights for open applications in the Dock
+defaults write com.apple.dock showhidden -bool false # Make Dock icons of hidden applications translucent (false=DONT)
+
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true # Enable tap to click (Trackpad)
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadCornerSecondaryClick -int 2 # Map bottom right Trackpad corner to right-click
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -bool true # Map bottom right Trackpad corner to right-click
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerHorizSwipeGesture -int 1 # Trackpad: swipe between pages with three fingers
+
+defaults write com.apple.finder AnimateInfoPanes -bool false
+defaults write com.apple.Finder AppleShowAllFiles -bool false # Finder: show hidden files by default
+defaults write com.apple.finder CreateDesktop TRUE
+defaults write com.apple.finder DisableAllAnimations -bool true # Finder: disable window animations and Get Info animations
+defaults write com.apple.finder EmptyTrashSecurely -bool true # Empty Trash securely by default
+defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false # Disable the warning when changing a file extension
+defaults write com.apple.finder FXEnableSlowAnimation -bool true
+defaults write com.apple.finder NewWindowTarget -string 'PfHm' # New Windows open with ~
+defaults write com.apple.finder OpenWindowForNewRemovableDisk -bool true # Automatically open a new Finder window when a volume is mounted
+defaults write com.apple.finder QLEnableTextSelection -bool true # Finder: allow text selection in Quick Look
+defaults write com.apple.finder QuitMenuItem -bool true # Allow quitting Finder via ⌘ + Q; doing so will also hide desktop icons
+defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true # Show icons for hard drives, servers, and removable media on the desktop
+defaults write com.apple.finder ShowHardDrivesOnDesktop -bool true # Show icons for hard drives, servers, and removable media on the desktop
+defaults write com.apple.finder ShowMountedServersOnDesktop -bool true # Show icons for hard drives, servers, and removable media on the desktop
+defaults write com.apple.finder ShowPathbar 1
+defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true # Show icons for hard drives, servers, and removable media on the desktop
+defaults write com.apple.finder ShowSidebar 0
+defaults write com.apple.finder ShowStatusBar -bool true # Finder: show status bar
+defaults write com.apple.finder WarnOnEmptyTrash -bool false # Disable the warning before emptying the Trash
+defaults write com.apple.finder _FXShowPosixPathInTitle -bool true # Display full POSIX path as Finder window title
+
+defaults write com.apple.frameworks.diskimages auto-open-ro-root -bool true # Automatically open a new Finder window when a volume is mounted
+defaults write com.apple.frameworks.diskimages auto-open-rw-root -bool true # Automatically open a new Finder window when a volume is mounted
+defaults write com.apple.frameworks.diskimages skip-verify -bool true # Disable disk image verification
+defaults write com.apple.frameworks.diskimages skip-verify-locked -bool true # Disable disk image verification
+defaults write com.apple.frameworks.diskimages skip-verify-remote -bool true # Disable disk image verification
+
+defaults write com.apple.iTunes disablePing -bool true # Disable all the other Ping stuff in iTunes
+defaults write com.apple.iTunes disablePingSidebar -bool true # Disable the Ping sidebar in iTunes
+defaults write com.apple.iTunes license-agreements -dict-add EA0815 -bool true
+
+defaults write com.apple.LaunchServices LSQuarantine -bool false # Disable the “Are you sure you want to open this application?” dialog
+
+defaults write com.apple.loginwindow TALLogoutSavesState -bool false
+
+defaults write com.apple.Mail DisableReplyAnimations -bool true # Disable send and reply animations in Mail.app
+defaults write com.apple.Mail DisableSendAnimations -bool true # Disable send and reply animations in Mail.app
+
+defaults write com.apple.menuextra.battery ShowPercent -string "NO" # Show remaining battery time; hide percentage
+defaults write com.apple.menuextra.battery ShowTime -string "YES" # Show remaining battery time; hide percentage
+
+defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true # Enable AirDrop over Ethernet and on unsupported Macs running Lion
+
+defaults write com.apple.Safari "com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled" -bool true
+defaults write com.apple.safari DebugSnapshotsUpdatePolicy -int 2 # Disable Safari’s thumbnail cache for History and Top Sites
+defaults write com.apple.Safari FindOnPageMatchesWordStartsOnly -bool false # Make Safari’s search banners default to Contains instead of Starts With
+defaults write com.apple.Safari IncludeDevelopMenu -bool true # Enable the Develop menu and the Web Inspector in Safari
+defaults write com.apple.Safari IncludeInternalDebugMenu -bool true # Enable Safari’s debug menu
+defaults write com.apple.safari ProxiesInBookmarksBar "()" # Remove useless icons from Safari’s bookmarks bar
+defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
+
+defaults write com.apple.screencapture disable-shadow -bool true # Disable shadow in screenshots
+defaults write com.apple.screencapture location ~/Dropbox/Photos/Screenshots/
+defaults write com.apple.screencapture name `hostname -s`
+defaults write com.apple.screencapture type jpg
+
+defaults write com.apple.screensaver askForPassword -int 1 # Require password immediately after sleep or screen saver begins
+defaults write com.apple.screensaver askForPasswordDelay -int 0 # Require password immediately after sleep or screen saver begins
+
+defaults write com.apple.systempreferences AppleIntlCustomFormat { }
+
+defaults write com.apple.terminal StringEncodings -array 4 # Only use UTF-8 in Terminal.app
+
+defaults write com.google.Keystone.Agent checkInterval 0	# Disable Google Automatic Checks
+
+defaults write com.peterborgapps.Lingon InformAboutWhatIsNeededAfterSave -bool NO
+
+defaults write com.apple.appstore ShowDebugMenu -bool true
+
+
+# defaults write com.apple.menuextra.clock DateFormat -string HELLO WORLD
+# defaults write com.apple.menuextra.clock DateFormat -string M dd h:mm P
+# defaults write com.apple.menuextra.clock DateFormat -string MM dd h:mm
+# defaults write com.apple.menuextra.clock DateFormat -string MM dd h:mm 'HELLO'
+# defaults write com.apple.menuextra.clock DateFormat -string MM dd h:mm HELLO
+# defaults write com.apple.menuextra.clock DateFormat -string MM dd h:mm p
+# defaults write com.apple.safari IncludeInternalDebugMenu -bool true # Enable Safari’s debug menu
+
+
+# @	command
+# ~ option
+# ^ control
+# $ shift
+
+defaults write -globalDomain NSUserKeyEquivalents -dict-add "Save As..." '@$S'
+defaults write -globalDomain NSUserKeyEquivalents -dict-add "Save as PDF..." '@P'
+
+defaults write com.apple.safari NSUserKeyEquivalents -dict-add "Disable JavaScript" "@J"
+
+defaults write com.apple.safari NSUserKeyEquivalents -dict-add "Merge All Windows" "@~M"
+
+
+
+defaults write com.abbyy.FineReaderExpress NSUserKeyEquivalents -dict-add "Convert to Searchable PDF" "@p"
+defaults write com.abbyy.FineReaderExpress NSUserKeyEquivalents -dict-add "Convert to Text Document" "@t"
+defaults write com.abbyy.FineReaderExpress NSUserKeyEquivalents -dict-add "Delete Page" "@d"
+
+	# This is so cmd+shift+C will not conflict with Keyboard Maestro
+defaults write com.apple.finder NSUserKeyEquivalents -dict-add "Computer" "@~c"
+
+echo "
+
+You really ought to reboot now that you've made all of these changes
+
+You may also want to run
+
+sudo defaults read /Library/Preferences/com.apple.loginwindow LoginwindowText
+
+to make sure that it looks correct
+
+"
+
+exit 0
+
+#
+#EOF
+
