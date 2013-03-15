@@ -195,12 +195,6 @@ echo "
 
 You really ought to reboot now that you've made all of these changes
 
-You may also want to run
-
-sudo defaults read /Library/Preferences/com.apple.loginwindow LoginwindowText
-
-to make sure that it looks correct
-
 "
 
 exit 0
