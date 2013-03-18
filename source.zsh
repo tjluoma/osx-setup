@@ -39,3 +39,22 @@ _log () {
 			[[ "$IMPORTANT" == "no" ]] && IFS=$'\n' ERRORS=($(echo "$*: [$EXIT] OUTPUT: $OUTPUT\n$ERRORS"))
 	fi
 }
+
+_exit () {
+
+		[[ "$ERRORS" == "" ]] && exit 0
+
+		COUNT="${#ERRORS[@]}"
+
+		if [ "$COUNT" = "1" ]
+		then
+
+			echo "\n\n$NAME: Finished, with $COUNT error:\n$ERRORS"
+
+		else
+
+			echo "\n\n$NAME: Finished, with $COUNT errors:\n$ERRORS"
+		fi
+
+		exit 1
+}

@@ -29,6 +29,11 @@ echo "\n\n$NAME: Here's what it looks like: \n\n"
 
 sudo defaults read /Library/Preferences/com.apple.loginwindow LoginwindowText
 
+
+sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo HostName
+
+
+
 #
 #
 ####|####|####|####|####|####|####|####|####|####|####|####|####|####|####

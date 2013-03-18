@@ -1,0 +1,20 @@
+
+The stock `/usr/libexec/locate.updatedb` contains these lines:
+
+	if [ "$(id -u)" = "0" ]; then
+		rc=0
+		export FCODES=`mktemp -t updatedb`
+		chown nobody $FCODES
+		tmpdb=`su -fm nobody -c "$0"` || rc=1
+		if [ $rc = 0 ]; then
+			install -m 0444 -o nobody -g wheel $FCODES /var/db/locate.database
+		fi
+		rm $FCODES
+		exit $rc
+	fi
+
+Translation: if you run this as `root` we're going to run it as `nobody` and you're going to miss files.
+
+So I either comment out those lines or remove them, and then run
+
+	sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.locate.plist

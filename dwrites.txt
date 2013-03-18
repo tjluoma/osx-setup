@@ -7,7 +7,6 @@
 
 NAME="$0:t"
 
-# hash tmutil &> /dev/null && sudo tmutil disablelocal # Disable local Time Machine backups
 # [ -e ~/Library/Application\ Support/Dock/*.db ] && rm ~/Library/Application\ Support/Dock/*.db # Reset Launchpad
 
 	# Fix for the ancient UTF-8 bug in QuickLook (http://mths.be/bbo).
@@ -25,11 +24,6 @@ defaults write /Library/Preferences/com.apple.loginwindow autoLoginUser $USER	# 
 
 
 
-sudo /usr/bin/defaults write /Library/Preferences/com.apple.alf globalstate -int 0 # firewall OFF use '2' for 'block all' source: http://macadmincorner.com/configure-the-mac-os-x-firewall-with-a-script/
-sudo /usr/bin/defaults write /Library/Preferences/com.apple.alf stealthenabled -int 0 # firewall OFF use '2' for 'block all' source: http://macadmincorner.com/configure-the-mac-os-x-firewall-with-a-script/
-
-#sudo /usr/bin/defaults write /Library/Preferences/com.apple.alf globalstate -int 1 # firewall ON use '2' for 'block all' source: http://macadmincorner.com/configure-the-mac-os-x-firewall-with-a-script/
-#sudo /usr/bin/defaults write /Library/Preferences/com.apple.alf stealthenabled -int 1 # firewall ON use '2' for 'block all' source: http://macadmincorner.com/configure-the-mac-os-x-firewall-with-a-script/
 
 
 
